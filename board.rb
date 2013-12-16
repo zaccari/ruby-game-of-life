@@ -50,11 +50,11 @@ class Board
       count = neighbor_count_for_cell(cell)
       if cell.alive?
         if count == 2 || count == 3
-          coordinates << [cell.x, cell.y]
+          coordinates << cell.coordinates
         end
       else
         if count == 3
-          coordinates << [cell.x, cell.y]
+          coordinates << cell.coordinates
         end
       end
     end

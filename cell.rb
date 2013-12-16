@@ -7,6 +7,10 @@ class Cell
     @alive = false
   end
 
+  def coordinates
+    [x, y]
+  end
+
   # Checks if the cell is alive.
   def alive?
     @alive == true
