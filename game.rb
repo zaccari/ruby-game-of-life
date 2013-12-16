@@ -10,7 +10,7 @@ class Game
   def run!
     while true
       @board.print
-      @board = board.generate_new
+      @board = @board.generate_new
       sleep 0.1
     end
   end
