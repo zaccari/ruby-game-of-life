@@ -1,8 +1,6 @@
 require './cell'
 
-# Square board
 class Board
-  attr_reader :cells
 
   def initialize(opts = {})
     @width  = opts[:width]  || 15
@@ -11,6 +9,46 @@ class Board
     generate_cells!
 
     set_to_alive(opts[:with_alive]) if opts[:with_alive]
+  end
+
+  def cells
+    @cells ||= @grid.flatten
+  end
+
+  # Seed a random amount of cells to be alive.
+  def seed!
+    Random.rand(@width * @height).times do
+      cells.sample.its_alive!
+    end
+  end
+
+  # Generates a new board with cells that should be alive.
+  def generate_new
+    self.class.new(:height => @height, :width => @width,
+      :with_alive => coordinates_for_new_cells)
+  end
+
+  # Print the board.
+  def print
+    system("clear")
+    @grid.each do |row|
+      putc "|"
+      putc " "
+      row.each do |cell|
+        putc cell.to_s
+        putc " "
+      end
+      putc "|"
+      putc "\n"
+    end
+    puts
+  end
+
+  private
+
+  # Grabs a cell for given coordinates.
+  def cell(x, y)
+    @grid[x][y]
   end
 
   # Generate a board of cells.
@@ -22,24 +60,11 @@ class Board
     end
   end
 
-  # Seed a random amount of cells to be alive.
-  def seed!
-    Random.rand(@width * @height).times do
-      cells.sample.its_alive!
-    end
-  end
-
   # Sets cells to alive for the given coordinates.
   def set_to_alive(coordinates = [])
     coordinates.each do |x, y|
       cell(x, y).its_alive!
     end
-  end
-
-  # Generates a new board with cells that should be alive.
-  def generate_new
-    self.class.new(:height => @height, :width => @width,
-      :with_alive => coordinates_for_new_cells)
   end
 
   # Returns an array of coordinates for cells that should be 
@@ -74,32 +99,5 @@ class Board
     end
 
     count
-  end
-
-  # Grabs a cell for given coordinates.
-  def cell(x, y)
-    @grid[x][y]
-  end
-
-  # Print the board.
-  def print
-    system("clear")
-    @grid.each do |row|
-      putc "|"
-      putc " "
-      row.each do |cell|
-        putc cell.to_s
-        putc " "
-      end
-      putc "|"
-      putc "\n"
-    end
-    puts
-  end
-
-  private
-
-  def cells
-    @cells ||= @grid.flatten
   end
 end
