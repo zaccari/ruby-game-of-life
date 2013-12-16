@@ -72,22 +72,14 @@ class Board
   # Returns an array of coordinates for cells that should be 
   # alive after the current tick.
   def coordinates_for_new_cells
-    coordinates = []
-
-    cells.each do |cell|
+    cells.map do |cell|
       count = neighbor_count_for_cell(cell)
       if cell.alive?
-        if count == 2 || count == 3
-          coordinates << cell.coordinates
-        end
+        cell.coordinates if count == 2 || count == 3
       else
-        if count == 3
-          coordinates << cell.coordinates
-        end
+        cell.coordinates if count == 3
       end
-    end
-
-    coordinates
+    end.compact
   end
 
   # Count the number of neighbors for a cell.
