@@ -32,9 +32,7 @@ class Board
   # Sets cells to alive for the given coordinates.
   def set_to_alive(coordinates = [])
     coordinates.each do |x, y|
-      cell = cell(x, y)
-      next if cell.nil?
-      cell.its_alive!
+      cell(x, y).its_alive!
     end
   end
 
