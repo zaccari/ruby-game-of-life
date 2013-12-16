@@ -13,7 +13,7 @@ class Board
 
   # Generate a board of cells.
   def generate_cells!
-    @cells = Array.new(@height) do |i|
+    @grid = Array.new(@height) do |i|
       Array.new(@width) do |j|
         Cell.new(i-1, j-1)
       end
@@ -22,9 +22,8 @@ class Board
 
   # Seed a random amount of cells to be alive.
   def seed!
-    cell_list = @cells.flatten
     Random.rand(@width * @height).times do
-      cell_list.sample.its_alive!
+      cells.sample.its_alive!
     end
   end
 
@@ -47,7 +46,7 @@ class Board
   def coordinates_for_new_cells
     coordinates = []
 
-    @cells.flatten.each do |cell|
+    cells.each do |cell|
       count = neighbor_count_for_cell(cell)
       if cell.alive?
         if count == 2 || count == 3
@@ -80,13 +79,13 @@ class Board
 
   # Grabs a cell for given coordinates.
   def cell(x, y)
-    @cells[x][y]
+    @grid[x][y]
   end
 
   # Print the board.
   def print
     system("clear")
-    @cells.each do |row|
+    @grid.each do |row|
       putc "|"
       putc " "
       row.each do |cell|
@@ -97,5 +96,11 @@ class Board
       putc "\n"
     end
     puts
+  end
+
+  private
+
+  def cells
+    @cells ||= @grid.flatten
   end
 end
