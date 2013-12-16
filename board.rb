@@ -9,6 +9,8 @@ class Board
     @height = opts[:height] || 30
 
     generate_cells!
+
+    set_to_alive(opts[:with_alive]) if opts[:with_alive]
   end
 
   # Generate a board of cells.
@@ -36,9 +38,8 @@ class Board
 
   # Generates a new board with cells that should be alive.
   def generate_new
-    board = self.class.new(:height => @height, :width => @width)
-    board.set_to_alive(coordinates_for_new_cells)
-    board
+    self.class.new(:height => @height, :width => @width,
+      :with_alive => coordinates_for_new_cells)
   end
 
   # Returns an array of coordinates for cells that should be 
