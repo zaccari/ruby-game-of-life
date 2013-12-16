@@ -11,6 +11,10 @@ class Cell
     [x, y]
   end
 
+  def at?(at_x, at_y)
+    x == at_x && y == at_y
+  end
+
   # Checks if the cell is alive.
   def alive?
     @alive == true
