@@ -9,6 +9,8 @@ class Board
     generate_cells!
 
     set_to_alive(opts[:with_alive]) if opts[:with_alive]
+
+    seed! if all_cells_are_dead?
   end
 
   def cells
@@ -99,5 +101,9 @@ class Board
     end
 
     count
+  end
+
+  def all_cells_are_dead?
+    cells.select { |c| c.alive? }.count.zero?
   end
 end
