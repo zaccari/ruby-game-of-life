@@ -22,8 +22,9 @@ class Board
 
   # Seed a random amount of cells to be alive.
   def seed!
+    cell_list = @cells.flatten
     Random.rand(@width * @height).times do
-      @cells.sample.sample.its_alive!
+      cell_list.sample.its_alive!
     end
   end
 
