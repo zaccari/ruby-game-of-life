@@ -2,7 +2,7 @@ require './board'
 
 class Game
   def initialize(height = 15, width = 30)
-    @board = Board.new(height, width)
+    @board = Board.new(:height => height, :width => width)
     @board.seed!
   end
 

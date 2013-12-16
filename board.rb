@@ -4,9 +4,9 @@ require './cell'
 class Board
   attr_reader :cells
 
-  def initialize(height = 15, width = 30)
-    @width  = width
-    @height = height
+  def initialize(opts = {})
+    @width  = opts[:width]  || 15
+    @height = opts[:height] || 30
 
     generate_cells!
   end
@@ -36,7 +36,7 @@ class Board
 
   # Generates a new board with cells that should be alive.
   def generate_new
-    board = self.class.new(@height, @width)
+    board = self.class.new(:height => @height, :width => @width)
     board.set_to_alive(coordinates_for_new_cells)
     board
   end
