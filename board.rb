@@ -68,9 +68,7 @@ class Board
 
     ((cell.x - 1)..(cell.x + 1)).each do |i|
       ((cell.y - 1)..(cell.y + 1)).each do |j|
-        if cell(i, j).alive?
-          count += 1
-        end
+        count +=1 if cell(i, j).alive?
       end
     end
 
